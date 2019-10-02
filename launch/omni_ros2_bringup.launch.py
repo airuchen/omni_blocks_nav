@@ -100,7 +100,9 @@ def generate_launch_description():
         package='dwb_controller',
         node_executable='dwb_controller',
         output='screen',
-        parameters=[configured_params])
+        parameters=[configured_params],
+        remappings=[('odom', 'odometry/filtered')]
+        )
 
     start_planner_cmd = launch_ros.actions.Node(
         package='nav2_navfn_planner',
@@ -119,7 +121,7 @@ def generate_launch_description():
     start_navigator_cmd = launch_ros.actions.Node(
         package='nav2_bt_navigator',
         node_executable='bt_navigator',
-        node_name='bt_navigator',
+        # node_name='bt_navigator',
         output='screen',
         parameters=[configured_params])
 
