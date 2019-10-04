@@ -115,6 +115,7 @@ def generate_launch_description():
         package='nav2_recoveries',
         node_executable='recoveries_node',
         node_name='recoveries',
+        # remappings=[('odom', 'odometry/filtered')],
         output='screen',
         parameters=[{'use_sim_time': use_sim_time}])
 
@@ -131,7 +132,13 @@ def generate_launch_description():
         node_name='lifecycle_manager',
         output='screen',
         parameters=[configured_params])
-
+    
+#     odom_tf = launch_ros.actions.Node(
+#         package='tf2_ros',
+#         node_executable='static_transform_publisher',
+#         output='screen',
+#         arguments=['0', '0', '0', '0', '0', '0', 'base_odom', 'odom'])
+# 
     # Create the launch description and populate
     ld = launch.LaunchDescription()
 
@@ -154,5 +161,6 @@ def generate_launch_description():
     ld.add_action(start_planner_cmd)
     ld.add_action(start_navigator_cmd)
     ld.add_action(start_recovery_cmd)
+    # ld.add_action(odom_tf)
 
     return ld
